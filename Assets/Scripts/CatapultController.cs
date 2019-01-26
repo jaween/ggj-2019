@@ -27,6 +27,8 @@ public class CatapultController : MonoBehaviour
     [HideInInspector]
     public bool cameraPause = false;
 
+    private bool mouseDown = false;
+
     void Start()
     {
 
@@ -36,16 +38,18 @@ public class CatapultController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !waitingForArrival && spawner.done)
         {
+            mouseDown = true;
             Create();
         }
 
-        if (Input.GetMouseButton(0) && !waitingForArrival)
+        if (Input.GetMouseButton(0) && !waitingForArrival && mouseDown)
         {
             Charge();
         }
 
-        if (Input.GetMouseButtonUp(0) && !waitingForArrival)
+        if (Input.GetMouseButtonUp(0) && !waitingForArrival && mouseDown)
         {
+            mouseDown = false;
             Release();
         }
 
@@ -129,6 +133,7 @@ public class CatapultController : MonoBehaviour
 
         currentPassenger.transform.parent = null;
         currentPassenger.GetComponentInChildren<TrailRenderer>().enabled = true;
+        currentPassenger.GetComponentInChildren<PassengerController>().Launch();
 
         waitingForArrival = true;
     }

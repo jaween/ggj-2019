@@ -564,13 +564,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.04510146, y: -0, z: -0, w: 0.9989824}
-  m_LocalPosition: {x: 0, y: 7.108718, z: -11.703622}
+  m_LocalRotation: {x: 0.46149594, y: -0, z: -0, w: 0.8871423}
+  m_LocalPosition: {x: 0, y: 50.8, z: -12.7}
   m_LocalScale: {x: 1, y: 1.7212081, z: 1.7212088}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 24.14, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 54.967003, y: 0, z: 0}
 --- !u!114 &534669906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1794,6 +1794,8 @@ MonoBehaviour:
   passengerNode: {fileID: 1594439928}
   passengerPrefab: {fileID: 8399709101647157214, guid: 1d382a88919aa2e43970f7b4483c1691,
     type: 3}
+  flags:
+  - {fileID: 11400000, guid: 08b245e94e051af49bae5f174621338c, type: 2}
   done: 0
   moveDuration: 0.5
   currentPassenger: {fileID: 0}
@@ -2074,6 +2076,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2133216642}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1628707001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1628707003}
+  - component: {fileID: 1628707002}
+  m_Layer: 0
+  m_Name: Game Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1628707002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628707001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758e85c8fbc73543966a4da34019094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  catapult: {fileID: 2038980887}
+  cameraController: {fileID: 534669906}
+  cameraStartNode: {fileID: 981001014}
+  cameraStartFollow: {fileID: 1799809525}
+--- !u!4 &1628707003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628707001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.203445, y: 9.976038, z: 49.040142}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1667282715 stripped
 Transform:

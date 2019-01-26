@@ -10,15 +10,26 @@ public class PassengerController : MonoBehaviour
     [HideInInspector]
     public SpawnScript spawnScript;
 
+    [HideInInspector]
+    public Flag flag;
+
+    private Rigidbody childRigidbody;
+
+    private bool timeup = false;
+    private bool destroyed = false;
+
     void Start()
     {
-        
+        childRigidbody = GetComponentInChildren<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (timeup && !destroyed && childRigidbody.velocity.magnitude < 1)
+        {
+            StartCoroutine("Destroy");
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +42,8 @@ public class PassengerController : MonoBehaviour
 
     private IEnumerator Destroy()
     {
+        destroyed = true;
+
         // TODO: Splash effect and sound
         catapultController.cameraPause = true;
 
@@ -42,7 +55,7 @@ public class PassengerController : MonoBehaviour
         {
             Destroy(rigidbody);
         }
-        
+      
         yield return new WaitForSeconds(1);
 
         spawnScript.Spawn();
@@ -50,7 +63,21 @@ public class PassengerController : MonoBehaviour
         catapultController.cameraPause = false;
         catapultController.waitingForArrival = false;
 
+
+        GameObject.Destroy(gameObject.transform.parent.gameObject);
+
         yield return new WaitForSeconds(5);
         Destroy(this.gameObject.transform.parent.gameObject);
+    }
+
+    private IEnumerator Timeup()
+    {
+        yield return new WaitForSeconds(1);
+        timeup = true;
+    }
+
+    public void Launch()
+    {
+        StartCoroutine("Timeup");
     }
 }
