@@ -22,8 +22,7 @@ public class CatapultController : MonoBehaviour
 
     void Start()
     {
-        cameraController.cameraNode = cameraChargeNode;
-        cameraController.followNode = cameraChargeFollowNode;
+
     }
 
     void Update()
@@ -47,10 +46,12 @@ public class CatapultController : MonoBehaviour
         {
             cameraController.cameraNode = cameraChargeNode;
             cameraController.followNode = cameraChargeFollowNode;
+            cameraController.followTime = 8f;
         } else
         {
-            cameraController.cameraNode = cameraChargeNode;
-            cameraController.followNode = currentPassengerRigidbody.transform;
+            cameraController.cameraNode = currentPassengerRigidbody == null ? cameraChargeNode : cameraLaunchNode;
+            cameraController.followNode = currentPassengerRigidbody == null ? cameraChargeFollowNode : currentPassengerRigidbody.transform;
+            cameraController.followTime = 8f;
         }
 
         Rotation();
