@@ -78,11 +78,11 @@ public class CatapultController : MonoBehaviour
         var axisAmount = 0;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            axisAmount = 1;
+            axisAmount = -1;
         }
         if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            axisAmount = -1;
+            axisAmount = 1;
         }
         //var axisAmount = Input.GetAxis("Horizontal");
         var horizontal = axisAmount * turnSpeed * Time.deltaTime;
