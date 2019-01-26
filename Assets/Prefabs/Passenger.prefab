@@ -248,7 +248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   catapultController: {fileID: 0}
   spawnScript: {fileID: 0}
-  flag: {fileID: 0}
 --- !u!1 &2520617495001988460
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +449,7 @@ GameObject:
   - component: {fileID: 3010895951104915062}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Passenger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

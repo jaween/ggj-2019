@@ -5,6 +5,8 @@ using UnityEngine;
 public class IslandController : MonoBehaviour
 {
     public Flag flag;
+    public AudioClip successAudio;
+    public AudioClip incorrectAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +22,22 @@ public class IslandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var otherFlag = other.gameObject.GetComponent<FlagController>();
-        if (otherFlag != null && otherFlag.name == flag.name)
+        var otherFlag = other.gameObject.GetComponentInParent<FlagController>();
+        var audioSource = GetComponent<AudioSource>();
+        if (otherFlag != null)
         {
-            Debug.Log("Correct");
+            if (otherFlag.flag.name == flag.name)
+            {
+                Debug.Log("Correct");
+                audioSource.clip = successAudio;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.Log("Incorrect");
+                audioSource.clip = incorrectAudio;
+                audioSource.Play();
+            }
         }
     }
 }
