@@ -10,9 +10,6 @@ public class PassengerController : MonoBehaviour
     [HideInInspector]
     public SpawnScript spawnScript;
 
-    [HideInInspector]
-    public Flag flag;
-
     private Rigidbody childRigidbody;
 
     private bool timeup = false;
