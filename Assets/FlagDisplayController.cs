@@ -22,7 +22,5 @@ public class FlagDisplayController : MonoBehaviour
             startPosition.y + Mathf.Sin(t),
             startPosition.z);
         transform.position = newPosition;
-
-        Debug.Log(Mathf.Sin(startPosition.y + t) + "");
     }
 }
