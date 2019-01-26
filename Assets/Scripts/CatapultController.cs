@@ -14,11 +14,18 @@ public class CatapultController : MonoBehaviour
     public float turnSpeed;
     public float chargeSpeed;
     public CameraController cameraController;
+    public SpawnScript spawner;
 
     private GameObject currentPassenger;
     private Rigidbody currentPassengerRigidbody;
     private GameObject previousPassenger;
     private float springForce;
+
+    [HideInInspector]
+    public bool waitingForArrival = false;
+
+    [HideInInspector]
+    public bool cameraPause = false;
 
     void Start()
     {
@@ -27,27 +34,27 @@ public class CatapultController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !waitingForArrival && spawner.done)
         {
             Create();
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !waitingForArrival)
         {
             Charge();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !waitingForArrival)
         {
             Release();
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !waitingForArrival)
         {
             cameraController.cameraNode = cameraChargeNode;
             cameraController.followNode = cameraChargeFollowNode;
             cameraController.followTime = 8f;
-        } else
+        } else if (!cameraPause)
         {
             cameraController.cameraNode = currentPassengerRigidbody == null ? cameraChargeNode : cameraLaunchNode;
             cameraController.followNode = currentPassengerRigidbody == null ? cameraChargeFollowNode : currentPassengerRigidbody.transform;
@@ -59,6 +66,11 @@ public class CatapultController : MonoBehaviour
 
     private void Rotation()
     {
+        if (waitingForArrival)
+        {
+            return;
+        }
+
         var axisAmount = 0;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -82,10 +94,13 @@ public class CatapultController : MonoBehaviour
         spring.GetComponent<Rigidbody>().velocity = Vector3.zero;
         spring.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
-        currentPassenger = GameObject.Instantiate(passengerPrefab, passengerNode);
+        spawner.done = false;
+        currentPassenger = spawner.currentPassenger;
         currentPassengerRigidbody = currentPassenger.GetComponentInChildren<Rigidbody>();
-
-        currentPassenger.GetComponentInChildren<TrailRenderer>().enabled = false;
+        spawner.currentPassenger = null;
+        /*currentPassenger = GameObject.Instantiate(passengerPrefab, passengerNode);
+        currentPassengerRigidbody = currentPassenger.GetComponentInChildren<Rigidbody>();*/
+        currentPassenger.GetComponentInChildren<PassengerController>().catapultController = this;
 
         // Unparent any non-thrown passenger from the catapult
         if (previousPassenger != null)
@@ -110,10 +125,11 @@ public class CatapultController : MonoBehaviour
 
     public void Release()
     {
-        GetComponent<LineRenderer>().enabled = false;
         spring.spring = springForce;
 
         currentPassenger.transform.parent = null;
         currentPassenger.GetComponentInChildren<TrailRenderer>().enabled = true;
+
+        waitingForArrival = true;
     }
 }
