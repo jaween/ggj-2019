@@ -246,12 +246,12 @@ PrefabInstance:
     - target: {fileID: 5770588732126783363, guid: a504f21a8959b2a4fb5d05dab832c8e1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5770588732126783363, guid: a504f21a8959b2a4fb5d05dab832c8e1,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5770588732126783363, guid: a504f21a8959b2a4fb5d05dab832c8e1,
         type: 3}
@@ -480,8 +480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followNode: {fileID: 132293782}
-  distanceMin: 25
-  distanceMax: 30
+  distanceMin: 20
+  distanceMax: 25
   speed: 0.2
   ocean: {fileID: 713238122}
   start: {fileID: 1389601951}
