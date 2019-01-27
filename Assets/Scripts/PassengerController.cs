@@ -13,6 +13,9 @@ public class PassengerController : MonoBehaviour
     [HideInInspector]
     public GameController gameController;
 
+    [HideInInspector]
+    public GaspScript gaspController;
+
     private Rigidbody childRigidbody;
 
     private bool timeup = false;
@@ -34,6 +37,18 @@ public class PassengerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Water")
+        {
+            // TODO: Splash effect
+            gameController.splashAudioSource.Play();
+            catapultController.cameraPause = true;
+        }
+
+        if (other.tag == "Water" || other.tag == "Ground")
+        {
+            gaspController.Play();
+        }
+
         if (other.tag == "Water" || other.tag == "Island")
         {
             StartCoroutine("Destroy");
@@ -43,10 +58,6 @@ public class PassengerController : MonoBehaviour
     private IEnumerator Destroy()
     {
         destroyed = true;
-
-        // TODO: Splash effect
-        gameController.splashAudioSource.Play();
-        catapultController.cameraPause = true;
 
         var trail = GetComponentInChildren<TrailRenderer>();
         trail.transform.parent = null;

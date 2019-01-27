@@ -18,6 +18,8 @@ public class SpawnScript : MonoBehaviour
 
     public GameObject currentPassenger;
 
+    public GaspScript gaspController;
+
     private void Start()
     {
         StartCoroutine("InitialSpawn");
@@ -36,8 +38,9 @@ public class SpawnScript : MonoBehaviour
         currentPassenger.GetComponentInChildren<TrailRenderer>().enabled = false;
         currentPassenger.GetComponentInChildren<PassengerController>().spawnScript = this;
         currentPassenger.GetComponentInChildren<PassengerController>().gameController = gameController;
-            
-        int i = Random.Range(0, flags.Count - 1);
+        currentPassenger.GetComponentInChildren<PassengerController>().gaspController = gaspController;
+
+        int i = Random.Range(0, flags.Count);
         currentPassenger.GetComponentInChildren<PassengerController>();
         currentPassenger.AddComponent<FlagController>();
         currentPassenger.GetComponentInChildren<FlagController>().flag = flags[i];

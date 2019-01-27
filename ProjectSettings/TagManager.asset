@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Water
   - Island
+  - Passenger
+  - FxTemporaire
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class CatapultController : MonoBehaviour
 {
+    [Header("Mechanics")]
     public SpringJoint spring;
     public GameObject passengerPrefab;
     public GameObject neck;
     public Transform passengerNode;
+    public float turnSpeed;
+    public float chargeSpeed;
+    public SpawnScript spawner;
+
+    [Header("Camera ")]
     public Transform cameraChargeNode;
     public Transform cameraChargeFollowNode;
     public Transform cameraLaunchNode;
-    public float turnSpeed;
-    public float chargeSpeed;
     public CameraController cameraController;
-    public SpawnScript spawner;
+
+    [Header("Audio")]
+    public AudioClip turnClip;
+    public AudioClip chargeClip;
+    public AudioClip launchClip;
 
     private GameObject currentPassenger;
     private Rigidbody currentPassengerRigidbody;
     private GameObject previousPassenger;
     private float springForce;
+    private AudioSource audioSource;
 
     [HideInInspector]
     public bool waitingForArrival = false;
@@ -31,7 +40,7 @@ public class CatapultController : MonoBehaviour
 
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -76,18 +85,34 @@ public class CatapultController : MonoBehaviour
         }
 
         var axisAmount = 0;
+        var dirPressed = false;
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             axisAmount = -1;
+            dirPressed = true;
         }
         if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             axisAmount = 1;
+            dirPressed = true;
         }
         //var axisAmount = Input.GetAxis("Horizontal");
         var horizontal = axisAmount * turnSpeed * Time.deltaTime;
         var rotation = Quaternion.Euler(new Vector3(0, horizontal, 0));
         transform.localRotation *= rotation;
+        transform.localRotation = Quaternion.Euler(new Vector3(
+            transform.localRotation.eulerAngles.x,
+            Mathf.Clamp(transform.localRotation.eulerAngles.y, 90, 270),
+            transform.localRotation.eulerAngles.z));
+        Debug.Log(transform.localRotation.eulerAngles);
+
+        audioSource.pitch = Random.Range(0.5f, 1.2f);
+        audioSource.clip = turnClip;
+        audioSource.Play();
+        if (!dirPressed && audioSource.clip == turnClip)
+        {
+            audioSource.Stop();
+        }
     }
 
     public void Create()
@@ -136,5 +161,10 @@ public class CatapultController : MonoBehaviour
         currentPassenger.GetComponentInChildren<PassengerController>().Launch();
 
         waitingForArrival = true;
+
+        var pitch = (neck.transform.localRotation.eulerAngles.x - 12) / 45;
+        audioSource.pitch = pitch;
+        audioSource.clip = launchClip;
+        audioSource.Play();
     }
 }

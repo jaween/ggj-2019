@@ -22,14 +22,13 @@ public class CrowdController : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                bool jump = (Random.value > 0.5);
+                bool jump = (Random.value > 0.1f);
                 if (jump)
                 {
                     var rigidbody = child.GetComponent<Rigidbody>();
                     rigidbody.velocity += Vector3.up * 3;
                 }
-
-                var t = Random.Range(0.1f, 0.7f);
+                var t = Random.Range(0.1f, 0.2f);
                 yield return new WaitForSeconds(t);
             }
         }
