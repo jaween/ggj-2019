@@ -14,6 +14,8 @@ public class SpawnScript : MonoBehaviour
 
     public float moveDuration;
 
+    public GameController gameController;
+
     public GameObject currentPassenger;
 
     private void Start()
@@ -33,6 +35,7 @@ public class SpawnScript : MonoBehaviour
         currentPassenger = GameObject.Instantiate(passengerPrefab, passengerNode);
         currentPassenger.GetComponentInChildren<TrailRenderer>().enabled = false;
         currentPassenger.GetComponentInChildren<PassengerController>().spawnScript = this;
+        currentPassenger.GetComponentInChildren<PassengerController>().gameController = gameController;
             
         int i = Random.Range(0, flags.Count - 1);
         currentPassenger.GetComponentInChildren<PassengerController>();

@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
     public CameraController cameraController;
     public Transform cameraStartNode;
     public Transform cameraStartFollow;
+
+    public AudioSource splashAudioSource;
+
     private bool gameStarted = false;
 
     void Start()

@@ -10,6 +10,9 @@ public class PassengerController : MonoBehaviour
     [HideInInspector]
     public SpawnScript spawnScript;
 
+    [HideInInspector]
+    public GameController gameController;
+
     private Rigidbody childRigidbody;
 
     private bool timeup = false;
@@ -41,7 +44,8 @@ public class PassengerController : MonoBehaviour
     {
         destroyed = true;
 
-        // TODO: Splash effect and sound
+        // TODO: Splash effect
+        gameController.splashAudioSource.Play();
         catapultController.cameraPause = true;
 
         var trail = GetComponentInChildren<TrailRenderer>();
