@@ -104,7 +104,6 @@ public class CatapultController : MonoBehaviour
             transform.localRotation.eulerAngles.x,
             Mathf.Clamp(transform.localRotation.eulerAngles.y, 90, 270),
             transform.localRotation.eulerAngles.z));
-        Debug.Log(transform.localRotation.eulerAngles);
 
         audioSource.pitch = Random.Range(0.5f, 1.2f);
         audioSource.clip = turnClip;

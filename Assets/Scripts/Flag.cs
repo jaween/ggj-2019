@@ -6,5 +6,5 @@ using UnityEngine;
 public class Flag : ScriptableObject
 {
     public new string name;
-    public Sprite flag;
+    public Texture flag;
 }

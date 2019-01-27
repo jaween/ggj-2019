@@ -7,6 +7,7 @@ public class FlagDisplayController : MonoBehaviour
     private Vector3 startPosition;
     private float t;
     public new bool enabled = true;
+    public Flag flag;
 
     private void Start()
     {
@@ -17,6 +18,8 @@ public class FlagDisplayController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //GetComponent<Renderer>().material.
+
         if (enabled)
         {
             t += Time.deltaTime * 2;
@@ -27,6 +30,8 @@ public class FlagDisplayController : MonoBehaviour
             transform.position = newPosition;
         } else
         {
+            gameObject.GetComponent<MeshRenderer>().material.mainTexture = flag.flag;
+            //gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture = flag.flag;
             var col = GetComponent<Renderer>().material.color;
             GetComponent<Renderer>().material.color = new Color(col.r, col.g, col.b, 0.3f);
         }

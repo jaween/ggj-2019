@@ -20,6 +20,8 @@ public class SpawnScript : MonoBehaviour
 
     public GaspScript gaspController;
 
+    public FlagDisplayController flagDisplayController;
+
     private void Start()
     {
         StartCoroutine("InitialSpawn");
@@ -44,6 +46,7 @@ public class SpawnScript : MonoBehaviour
         currentPassenger.GetComponentInChildren<PassengerController>();
         currentPassenger.AddComponent<FlagController>();
         currentPassenger.GetComponentInChildren<FlagController>().flag = flags[i];
+        flagDisplayController.flag = flags[i];
 
         done = true;
 
